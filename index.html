@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CipherVault Engine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div id="canvas-container"></div>
+    
+    <div id="ui-container">
+        <div class="app-panel">
+            <div class="header">
+                <div class="logo-mark">⬡</div>
+                <div class="title-group">
+                    <h1>CipherVault</h1>
+                    <span class="badge">API CONNECTED</span>
+                </div>
+            </div>
+
+            <p class="description">Enterprise-grade obfuscation utilizing Positional Salt and Dynamic Autokey generation.</p>
+
+            <div class="tabs">
+                <button class="tab-btn active" id="tab-encrypt" onclick="setMode('encrypt')">Encrypt Data</button>
+                <button class="tab-btn" id="tab-decrypt" onclick="setMode('decrypt')">Decrypt Data</button>
+            </div>
+
+            <div class="form-group">
+                <label for="key-input">Master Keyword</label>
+                <input type="password" id="key-input" placeholder="Enter alphanumeric sequence" value="secure_key_123" />
+            </div>
+
+            <div class="form-group">
+                <label id="text-label" for="text-input">Plaintext Input</label>
+                <textarea id="text-input" placeholder="Enter data packet to secure..."></textarea>
+            </div>
+
+            <div class="error-msg" id="error-msg"></div>
+
+            <button class="action-btn" id="run-btn" onclick="executeCipher()">
+                <span id="btn-text">Initialize Encryption</span>
+                <span class="loader" id="loader" style="display: none;"></span>
+            </button>
+
+            <div class="output-section">
+                <div class="output-header">
+                    <span id="output-label">System Output</span>
+                    <button class="copy-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+                </div>
+                <div class="output-box" id="output-box">
+                    <span class="placeholder">// Awaiting server execution...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="scene.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+:root {
+    --bg-base: #0f172a;
+    --panel-bg: rgba(30, 41, 59, 0.7);
+    --border: rgba(148, 163, 184, 0.2);
+    --primary: #14b8a6; /* Toned down teal */
+    --primary-hover: #0d9488;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --danger: #ef4444;
+    --font-ui: 'Inter', sans-serif;
+    --font-code: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: var(--font-ui);
+    height: 100vh;
+    overflow: hidden;
+}
+
+#canvas-container {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+}
+
+#ui-container {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+}
+
+.app-panel {
+    background: var(--panel-bg);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 520px;
+    padding: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.header { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+
+.logo-mark {
+    font-size: 24px;
+    color: var(--primary);
+}
+
+h1 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
+
+.badge {
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    background: rgba(20, 184, 166, 0.15);
+    color: var(--primary);
+    border-radius: 12px;
+    letter-spacing: 0.05em;
+}
+
+.description { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
+
+.tabs { display: flex; gap: 8px; margin-bottom: 24px; background: rgba(0,0,0,0.2); padding: 4px; border-radius: 8px; }
+
+.tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 8px 0;
+    color: var(--text-muted);
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tab-btn.active { background: var(--bg-base); color: var(--text-main); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+
+.form-group { margin-bottom: 20px; }
+
+label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+input, textarea {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    color: var(--text-main);
+    font-family: var(--font-code);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus { border-color: var(--primary); }
+textarea { height: 90px; resize: none; line-height: 1.5; }
+
+.action-btn {
+    width: 100%;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.action-btn:hover { background: var(--primary-hover); }
+.action-btn.decrypt-mode { background: #3b82f6; }
+.action-btn.decrypt-mode:hover { background: #2563eb; }
+
+.output-section { border-top: 1px solid var(--border); padding-top: 24px; }
+.output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+#output-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+
+.copy-btn { background: none; border: none; color: var(--primary); font-size: 0.75rem; font-weight: 600; cursor: pointer; }
+.copy-btn:hover { text-decoration: underline; }
+
+.output-box {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    font-family: var(--font-code);
+    font-size: 0.9rem;
+    color: var(--primary);
+    word-break: break-all;
+    min-height: 60px;
+}
+.output-box .placeholder { color: var(--text-muted); font-size: 0.8rem; }
+
+.error-msg { color: var(--danger); font-size: 0.8rem; margin-bottom: 12px; display: none; font-weight: 600; }
+
+.loader {
+    width: 16px; height: 16px;
+    border: 2px solid #fff; border-bottom-color: transparent;
+    border-radius: 50%;
+    animation: rotation 1s linear infinite;
+}
+@keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }

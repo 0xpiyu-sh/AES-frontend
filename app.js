@@ -1,5 +1,5 @@
 let currentMode = 'encrypt';
-const API_URL = 'http://127.0.0.1:5000/api/cipher'; // Ensure this matches your Flask port
+const API_URL = 'https://aes-backend-q4bu.onrender.com'; // Ensure this matches your Flask port
 
 function setMode(mode) {
     currentMode = mode;

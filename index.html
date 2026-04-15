@@ -8,51 +8,106 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+    <div id="intro-loader">
+    <div class="intro-logo-container">
+        <span class="intro-first-letter">C</span>
+        <span class="intro-rest">IPHERVAULT</span>
+    </div>
+    </div>
     <div id="canvas-container"></div>
     
     <div id="ui-container">
-        <div class="app-panel">
-            <div class="header">
-                <div class="logo-mark">⬡</div>
-                <div class="title-group">
-                    <h1>CipherVault</h1>
-                    <span class="badge">API CONNECTED</span>
+        <div class="app-panel glass-effect">
+            
+            <nav class="main-nav">
+                <button class="nav-btn active" onclick="switchView('app')">Engine</button>
+                <button class="nav-btn" onclick="switchView('about')">About Us</button>
+                <button class="nav-btn" onclick="switchView('help')">How to Use</button>
+            </nav>
+
+            <div id="view-app" class="view-section active">
+                <div class="header">
+                    <div class="logo-mark">⬡</div>
+                    <div class="title-group">
+                        <h1>CipherVault</h1>
+                        <span class="badge">API CONNECTED</span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active glass-effect" id="tab-encrypt" onclick="setMode('encrypt')">Encrypt Data</button>
+                    <button class="tab-btn glass-effect" id="tab-decrypt" onclick="setMode('decrypt')">Decrypt Data</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="key-input">Master Keyword</label>
+                    <input type="password" id="key-input" class="glass-effect" placeholder="Enter alphanumeric sequence" value="secure_key_123" />
+                </div>
+
+                <div class="form-group relative">
+                    <label id="text-label" for="text-input">Plaintext Input</label>
+                    <div class="textarea-wrapper">
+                        <textarea id="text-input" class="glass-effect" placeholder="Enter data packet..."></textarea>
+                        <button class="paste-btn glass-effect" onclick="pasteFromClipboard()">📋 Paste</button>
+                    </div>
+                </div>
+
+                <div class="error-msg" id="error-msg"></div>
+
+                <button class="action-btn glass-effect" id="run-btn" onclick="executeCipher()">
+                    <span id="btn-text">Initialize Encryption</span>
+                    <span class="loader" id="loader" style="display: none;"></span>
+                </button>
+
+                <div class="output-section">
+                    <div class="output-header">
+                        <span id="output-label">System Output</span>
+                        <button class="copy-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+                    </div>
+                    <div class="output-box glass-effect" id="output-box">
+                        <span class="placeholder">// Awaiting server execution...</span>
+                    </div>
                 </div>
             </div>
 
-            <p class="description">Enterprise-grade obfuscation utilizing Positional Salt and Dynamic Autokey generation.</p>
-
-            <div class="tabs">
-                <button class="tab-btn active" id="tab-encrypt" onclick="setMode('encrypt')">Encrypt Data</button>
-                <button class="tab-btn" id="tab-decrypt" onclick="setMode('decrypt')">Decrypt Data</button>
-            </div>
-
-            <div class="form-group">
-                <label for="key-input">Master Keyword</label>
-                <input type="password" id="key-input" placeholder="Enter alphanumeric sequence" value="secure_key_123" />
-            </div>
-
-            <div class="form-group">
-                <label id="text-label" for="text-input">Plaintext Input</label>
-                <textarea id="text-input" placeholder="Enter data packet to secure..."></textarea>
-            </div>
-
-            <div class="error-msg" id="error-msg"></div>
-
-            <button class="action-btn" id="run-btn" onclick="executeCipher()">
-                <span id="btn-text">Initialize Encryption</span>
-                <span class="loader" id="loader" style="display: none;"></span>
-            </button>
-
-            <div class="output-section">
-                <div class="output-header">
-                    <span id="output-label">System Output</span>
-                    <button class="copy-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
-                </div>
-                <div class="output-box" id="output-box">
-                    <span class="placeholder">// Awaiting server execution...</span>
+            <div id="view-about" class="view-section">
+                <div class="text-content">
+                    <h2 class="section-title">ENCRYPT THE ORDINARY.</h2>
+                    <h3>About Us – CipherVault</h3>
+                    <p>CipherVault redefines how people experience data privacy—transforming something often seen as complex and tedious into something simple, intuitive, and engaging.</p>
+                    <p>In a world where sensitive information is shared every day, it bridges the gap between security and usability through an interactive, visually appealing approach.</p>
+                    <p>By combining lightweight encryption with seamless design, CipherVault empowers users to protect their data effortlessly and build everyday privacy habits.</p>
                 </div>
             </div>
+
+            <div id="view-help" class="view-section">
+                <div class="text-content">
+                    <h2 class="section-title">Operations Guide</h2>
+                    
+                    <div class="guide-block">
+                        <h3>🔐 How to Use – Encryption</h3>
+                        <ol>
+                            <li>Enter the plaintext message you want to secure.</li>
+                            <li>Provide a keyword (encryption key).</li>
+                            <li>Click on <strong>Initialize Encryption</strong>.</li>
+                            <li>The system generates a unique ciphertext using dynamic shifts.</li>
+                            <li>Copy and share the encrypted output securely.</li>
+                        </ol>
+                    </div>
+
+                    <div class="guide-block" style="margin-top: 20px;">
+                        <h3>🔓 How to Use – Decryption</h3>
+                        <ol>
+                            <li>Paste the ciphertext you received.</li>
+                            <li>Enter the exact same keyword used during encryption.</li>
+                            <li>Click on <strong>Execute Decryption</strong>.</li>
+                            <li>The system reconstructs the key dynamically.</li>
+                            <li>Original message is retrieved safely.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

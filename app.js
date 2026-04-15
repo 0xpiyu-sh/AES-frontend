@@ -1,5 +1,5 @@
 let currentMode = 'encrypt';
-const API_URL = 'https://aes-backend-q4bu.onrender.com/api/cipher'; // Ensure this matches your Flask port
+const API_URL = 'http://127.0.0.1:5000/api/cipher'; // Ensure this matches your Flask port
 
 function setMode(mode) {
     currentMode = mode;
@@ -80,4 +80,64 @@ function copyToClipboard() {
     const btn = document.querySelector('.copy-btn');
     btn.textContent = 'Copied!';
     setTimeout(() => btn.textContent = 'Copy to Clipboard', 2000);
+}
+
+// --- Intro Loader Logic ---
+document.addEventListener("DOMContentLoaded", () => {
+    const loader = document.getElementById('intro-loader');
+    
+    // The animation takes 1.7s total (0.5s delay + 1.2s slide). 
+    // We hold for a split second after it finishes, then fade out.
+    setTimeout(() => {
+        loader.classList.add('loader-hidden');
+        
+        // Remove it from the DOM entirely after the fade finishes to save memory
+        setTimeout(() => {
+            loader.remove();
+        }, 600); 
+    }, 2400); 
+});
+// --- View Switching Logic (SPA) ---
+function switchView(viewId) {
+    // 1. Hide all views
+    document.querySelectorAll('.view-section').forEach(el => {
+        el.classList.remove('active');
+    });
+    
+    // 2. Remove active state from all nav buttons
+    document.querySelectorAll('.nav-btn').forEach(el => {
+        el.classList.remove('active');
+    });
+    
+    // 3. Show selected view
+    document.getElementById('view-' + viewId).classList.add('active');
+    
+    // 4. Highlight clicked button
+    event.currentTarget.classList.add('active');
+}
+
+// --- Paste Button Logic ---
+async function pasteFromClipboard() {
+    const textInput = document.getElementById('text-input');
+    const pasteBtn = document.querySelector('.paste-btn');
+    
+    try {
+        // Read text from user's clipboard
+        const text = await navigator.clipboard.readText();
+        textInput.value = text;
+        
+        // Visual feedback
+        const originalText = pasteBtn.innerHTML;
+        pasteBtn.innerHTML = '✓ Pasted';
+        pasteBtn.style.color = 'var(--primary)';
+        
+        setTimeout(() => {
+            pasteBtn.innerHTML = originalText;
+            pasteBtn.style.color = 'var(--text-main)';
+        }, 1500);
+        
+    } catch (err) {
+        console.error('Failed to read clipboard contents: ', err);
+        alert("Clipboard permission denied. Please paste manually using Ctrl+V or Cmd+V.");
+    }
 }

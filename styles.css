@@ -158,3 +158,149 @@ textarea { height: 90px; resize: none; line-height: 1.5; }
     animation: rotation 1s linear infinite;
 }
 @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+
+/* --- Intro Loader Styles --- */
+#intro-loader {
+    position: fixed;
+    inset: 0;
+    background-color: var(--bg-base); /* Matches your deep slate background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it stays on top of everything */
+    transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+}
+
+.intro-logo-container {
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--text-main);
+}
+
+.intro-first-letter {
+    color: var(--primary); /* Uses your teal accent */
+    z-index: 2;
+}
+
+.intro-rest {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 0;
+    opacity: 0;
+    white-space: nowrap;
+    /* The cubic-bezier gives it that snappy, mechanical "snap into place" feel */
+    animation: revealText 1.2s cubic-bezier(0.8, 0, 0.2, 1) 0.5s forwards;
+}
+
+@keyframes revealText {
+    0% {
+        max-width: 0;
+        opacity: 0;
+        padding-left: 0;
+    }
+    40% {
+        opacity: 1; /* Fade in quickly as it opens */
+    }
+    100% {
+        max-width: 500px; /* Wide enough to fit the rest of the word */
+        opacity: 1;
+        padding-left: 2px;
+    }
+}
+
+/* Utility class added by JavaScript to hide the loader */
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+/* --- Add these to your existing styles.css --- */
+
+/* The Core Glassmorphism Class */
+.glass-effect {
+    background: rgba(15, 23, 42, 0.25);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.app-panel {
+    border-radius: 16px;
+    width: 100%;
+    max-width: 520px;
+    padding: 24px 32px 32px;
+    /* transition for smooth height resizing */
+    transition: all 0.3s ease; 
+}
+
+/* Main Top Navigation */
+.main-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.nav-btn:hover { color: var(--text-main); }
+.nav-btn.active { 
+    color: var(--primary); 
+    background: rgba(20, 184, 166, 0.1); 
+}
+
+/* View Sections (SPA Logic) */
+.view-section {
+    display: none;
+    animation: fadeIn 0.4s ease forwards;
+}
+.view-section.active { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Paste Button Styling */
+.textarea-wrapper { position: relative; }
+.paste-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    font-size: 0.7rem;
+    color: var(--text-main);
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: var(--font-ui);
+    z-index: 5;
+}
+.paste-btn:hover { background: rgba(255, 255, 255, 0.1); }
+
+/* Text Content for About/Help */
+.text-content { color: var(--text-muted); line-height: 1.6; font-size: 0.9rem; }
+.section-title { color: var(--primary); font-size: 1.1rem; margin-bottom: 16px; letter-spacing: 0.05em; font-weight: 800; }
+.text-content h3 { color: var(--text-main); font-size: 0.95rem; margin-bottom: 8px; }
+.text-content p { margin-bottom: 12px; }
+.guide-block ol { padding-left: 20px; }
+.guide-block li { margin-bottom: 6px; }
+.guide-block strong { color: var(--text-main); }

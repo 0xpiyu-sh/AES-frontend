@@ -43,6 +43,13 @@ async function executeCipher() {
     btnText.style.display = 'none';
     loader.style.display = 'inline-block';
 
+    // Set a timer to change the loading text after 4 seconds
+    const slowLoadWarning = setTimeout(() => {
+        btnText.textContent = "Waking secure server (may take 30s)...";
+        btnText.style.display = 'inline-block';
+        btnText.style.fontSize = '0.75rem';
+    }, 4000);
+
     try {
         const response = await fetch(API_URL, {
             method: 'POST',
@@ -67,6 +74,9 @@ async function executeCipher() {
         errMsg.style.display = 'block';
         outputBox.innerHTML = '<span class="placeholder" style="color: var(--danger)">// Execution failed</span>';
     } finally {
+        clearTimeout(slowLoadWarning); // Stop the warning timer
+        btnText.style.fontSize = '0.9rem'; // Reset font size
+        btnText.textContent = currentMode === 'encrypt' ? 'Initialize Encryption' : 'Execute Decryption';
         btnText.style.display = 'inline-block';
         loader.style.display = 'none';
     }
